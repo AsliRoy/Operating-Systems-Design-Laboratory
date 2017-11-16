@@ -1,0 +1,37 @@
+echo "enter the number of students:"
+read n
+i=0
+while [ $i -lt $n ]
+do
+read roll[$i]
+read name[$i]
+read mark1[$i]
+read mark2[$i]
+read mark3[$i]
+i=$(( $i + 1 ))
+done
+
+i=0
+while [ $i -lt $n ]
+do
+tm[$i]=$(( mark1[$i] + mark2[$i] + mark3[$i] ))
+echo "${tm[$i]}"
+i=$(( $i + 1 ))
+done
+
+i=0
+greatest=0
+while [ $i -lt $n ]
+do
+if [ tm[$i] > $greatest ]
+then
+greatest= $((tm[$i]))
+
+fi
+i=$(( $i + 1 ))
+done
+
+echo "$greatest"
+
+
+

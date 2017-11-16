@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<pthread.h>
+#include<stdlib.h>
+ 
+#define Buffer_Limit 10
+pthread_mutex_t mutex1=PTHREAD_MUTEX_INITIALIZER; 
+int s = 0;
+pthread_cond_t full = PTHREAD_COND_INITIALIZER;
+pthread_cond_t empty = PTHREAD_COND_INITIALIZER;
+
+void *producer()
+{
+	while(1)
+	{
+		pthread_mutex_lock(&mutex1);
+		if(s==10){
+			pthread_cond_wait(&full, &mutex1);
+		}
+		s++;
+		printf("producer No. %d is now using the buffer\n",s);
+		pthread_mutex_unlock(&mutex1);
+        	pthread_cond_signal(&empty);
+	}
+}
+void *consumer()
+{
+	while(1)
+	{
+		pthread_mutex_lock(&mutex1);
+		if(s==0){
+			pthread_cond_wait(&empty, &mutex1);
+		}
+		s--;
+		printf("consumer No. %d is now using the buffer\n",s);
+		pthread_mutex_unlock(&mutex1);
+        	pthread_cond_signal(&full);
+	}
+}
+int main()
+{    
+	pthread_t producer_id, consumer_id;
+    	pthread_create(&producer_id, NULL, producer, NULL);
+    	pthread_create(&consumer_id, NULL, consumer, NULL);
+    	pthread_join(producer_id, NULL);
+    	pthread_join(consumer_id, NULL);
+	return 0;
+}

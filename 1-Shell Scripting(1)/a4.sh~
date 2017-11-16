@@ -1,0 +1,13 @@
+echo  "Enter file name : "
+read filename
+ 
+[ -w $filename ] && W="Write permission = yes" || W="Write permission = No"
+ 
+[ -x $filename ] && X="Execute permission = yes" || X="Execute permission= No"
+ 
+[ -r $filename ] && R="Read permission= yes" || R="Read permission = No"
+ 
+echo "$filename permissions"
+echo "$W"
+echo "$R"
+echo "$X"
