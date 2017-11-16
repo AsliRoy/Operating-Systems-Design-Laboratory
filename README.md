@@ -1,1 +1,1 @@
-# Operating Systems-Design Laboratory
+This repository deals with the various concepts that are used in Operating System Design like semaphores, synchronization, IPC and signals and the realization of these concepts using the C programming language.
